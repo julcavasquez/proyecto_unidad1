@@ -50,6 +50,15 @@ def menu_principal():
 
     generar_menu(opciones, '6')
 
+def lee_entero(msg):
+    while True:
+        valor = input(f"{msg}")
+        try:
+            valor = int(valor)
+            return valor
+        except ValueError:
+            print ("Debe ingresar un número")
+            
 # *** Definicion de funciones de cada opcion del menu ****
 def opcion1():
     print('Has elegido la opción 1')
