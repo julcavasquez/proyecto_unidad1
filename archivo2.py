@@ -1,3 +1,19 @@
+# Peticion
+import requests
+
+class Pokemon:
+
+    def __init__(self, name, habilidad, url_imagen):
+        self.name = name
+        self.habilidad:list[any] = habilidad
+        self.url_imagen = url_imagen
+
+    def mostrar_datos(self):
+        print(f"Pokemon: {self.name}",
+              f"\nHabilidades: {self.habilidad}",
+              f"\nUrl_Imagen: {self.url_imagen}"
+              )
+
 def mostrar_menu(opciones):
     print('Menú de opciones:')
     for clave in opciones:
