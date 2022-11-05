@@ -60,8 +60,26 @@ def lee_entero(msg):
             print ("Debe ingresar un número")
             
 # *** Definicion de funciones de cada opcion del menu ****
+api_pokemon = "https://pokeapi.co/api/v2/pokemon/"
 def opcion1():
-    print('Has elegido la opción 1')
+    generacion = lee_entero("Ingrese una generación (1-8):")
+    while (int(generacion) == 0) or (int(generacion) > 8):
+        print("¡Ha escrito una generación fuera del rango")
+        generacion = lee_entero("Ingrese una generación (1-8):")
+    api_generacion = "https://pokeapi.co/api/v2/generation/" + str(generacion) + "/"
+    response = requests.get(api_generacion)
+    data = response.json()
+    print(f"****Lista de Pokemones****")
+    for pokemon in data['pokemon_species']:
+        response_pokemon = requests.get(api_pokemon + pokemon['name'])
+        data_pokemon = response_pokemon.json()
+        MiPokemon = Pokemon(
+            data_pokemon["name"],
+            list(habilidad["ability"]["name"] for habilidad in data_pokemon["abilities"]),
+            data_pokemon["sprites"]['front_default']
+        )
+        MiPokemon.mostrar_datos()
+        print("-"*50)
 
 def opcion2():
     print('Has elegido la opción 2')
