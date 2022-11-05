@@ -1,10 +1,46 @@
+import re 
 class Libro:
-    id = ''
-    titulo = ''
-    genero = ''
-    isbn = ''
-    editorial = ''
-    autores = ''
+    list_libros:list[any] = []
+    
+    def __init__(self,id,titulo,genero,isbn,editorial,autores:list):
+        self.id           = id
+        self.titulo       = titulo
+        self.genero       = genero
+        self.isbn         = isbn
+        self.editorial    = editorial
+        self.autores      = autores
+        
+    @staticmethod 
+    def add_libro_static(libro:any):
+        Libro.list_libros.append(libro)
+    
+    @staticmethod 
+    def list_libros_static():
+        for libro in Libro.list_libros:
+            print(f"id:{libro.id},titulo:{libro.titulo},genero:{libro.genero},autores:{libro.isbn},editorial:{libro.editorial},autores:{'-'.join(libro.autores)}")
+    @staticmethod 
+    def eliminar_libro_static(id=-1):
+        if id==-1:
+            Libro.list_libros.pop()
+        else:
+            for li in Libro.list_libros:
+                if id==li.id:
+                    print("entre a eliminar")
+                    Libro.list_libros.remove(li)
+    @staticmethod               
+    def busqueda_libro_static(busqueda):
+        
+            list_busqueda=[]
+            for li in Libro.list_libros:
+                 patron1 = re.search(f"{busqueda}*",str(li.isbn))
+                 patron2 = re.search(f"{busqueda}*",str(li.titulo))
+                 if patron1!=None or patron2!=None:
+                     list_busqueda.append(li)
+            print("quizas********")
+            if list_busqueda!=[]:
+                for libro in list_busqueda:
+                    print(f"id:{libro.id},titulo:{libro.titulo},genero:{libro.genero},autores:{libro.isbn},editorial:{libro.editorial},autores:{'-'.join(libro.autores)}")
+        
 
 def mostrar_menu(opciones):
     print('Menú de opciones:')
@@ -50,18 +86,43 @@ def menu_principal():
 # *** Definicion de funciones de cada opcion del menu ****
 
 def opcion1():
+    
+    import csv
+
+    with open("Libros.csv", "r") as file:
+        reader = csv.DictReader(file)
+        for fila in reader:
+            list_autores=fila['autores'].split('-')
+            libro=Libro(int(fila['id']),fila['titulo'],fila['genero'],fila['isbn'],fila['editorial'],list_autores)
+            Libro.add_libro_static(libro)
     print('Has elegido la opción 1')
 
 def opcion2():
+    Libro.list_libros_static()
     print('Has elegido la opción 2')
 
 def opcion3():
+    fila={
+        'id':int(input("ingrese identificador:")),
+        'titulo':input("ingrese titulo:"),
+        'genero':input("ingrese genero:"),
+        'isbn' :int(input("ingrese isbn:")),
+        'editorial':input("ingrese editorial:"),
+        'autores':input("ingrese autores(separados por - example:auto1-autor2):").split('-')
+    }
+    
+    libro=Libro(fila['id'],fila['titulo'],fila['genero'],fila['isbn'],fila['editorial'],fila['autores'])
+    Libro.add_libro_static(libro)
     print('Has elegido la opción 3')
 
 def opcion4():
+    id_libro=int(input("ingrese el id libro:"))
+    Libro.eliminar_libro_static(id_libro)
     print('Has elegido la opción 4')
 
 def opcion5():
+    busqueda=input("ingrese con ibsn/titulo libro:")
+    Libro.busqueda_libro_static(busqueda)
     print('Has elegido la opción 5')
 
 def opcion6():
