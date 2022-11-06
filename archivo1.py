@@ -18,6 +18,16 @@ class Libro:
     def list_libros_static():
         for libro in Libro.list_libros:
             print(f"id:{libro.id},titulo:{libro.titulo},genero:{libro.genero},autores:{libro.isbn},editorial:{libro.editorial},autores:{'-'.join(libro.autores)}")
+    
+    @staticmethod 
+    def order_libros_titulo():
+        libros = [libro.__dict__ for libro in Libro.list_libros]
+        ordenados = sorted(libros, key=lambda l : l['titulo'])
+        for l in ordenados:
+            print(f"id => {l['id']}"
+                  f"\nTitulo => {l['titulo']}")
+            print("*" * 50)
+
     @staticmethod 
     def eliminar_libro_static(id=-1):
         if id==-1:
@@ -128,6 +138,7 @@ def opcion5():
 
 def opcion6():
     print('Has elegido la opción 6')
+    Libro.order_libros_titulo()
 
 def opcion7():
     print('Has elegido la opción 7')
