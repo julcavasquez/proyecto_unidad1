@@ -90,17 +90,6 @@ class Libro:
         for libro in Libro.list_libros:
             print(f"id:{libro.id},titulo:{libro.titulo},genero:{libro.genero},isbn:{libro.isbn},editorial:{libro.editorial},autores:{'-'.join(libro.autores)}")
 
-    @staticmethod
-    def Escribir_libro_disco_static():
-        
-        with open('disco\escritura-disco.csv', 'w', newline='') as csvfile:
-
-            fielheader = ['id', 'titulo','genero','isbn','editorial','autores']
-            writer = csv.DictWriter(csvfile,fieldnames=fielheader)
-            writer.writeheader()
-            for libro in Libro.list_libros:
-                writer.writerow({'id': libro.id, 'titulo':libro.titulo,'genero':libro.genero,'isbn':libro.isbn,'editorial':libro.editorial,'autores':'-'.join(libro.autores)})
-
 def mostrar_menu(opciones):
     print('Menú de opciones:')
     for clave in opciones:
