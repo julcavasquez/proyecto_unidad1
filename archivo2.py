@@ -120,7 +120,7 @@ def opcion5():
 
 
 def salir():
-    print('Saliendo')
+    print('Has elegido la opcion salir')
 
 
 if __name__ == '__main__':
