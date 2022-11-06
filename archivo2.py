@@ -82,13 +82,64 @@ def opcion1():
         print("-"*50)
 
 def opcion2():
-    print('Has elegido la opción 2')
+     api_pokemon_forma          = "https://pokeapi.co/api/v2/pokemon-shape/"
+     reponse_forma_pokemon_list = requests.get(api_pokemon_forma)
+     data_forma_pokemon_list    = reponse_forma_pokemon_list.json()
+     opciones_forma_pokemon     = [forma['name'] for forma in data_forma_pokemon_list['results']]
+     forma_pokemon=input(f"Ingrese la forma del pokemon >\nopciones:{opciones_forma_pokemon}:\n").strip()
+     while (forma_pokemon not in opciones_forma_pokemon):
+        print("¡La forma de pokemon no esta dentro de las opciones!")
+        forma_pokemon = input(f"Ingrese la forma del pokemon > \nopciones:{opciones_forma_pokemon}:\n").strip()
+    
+     reponse_forma_pokemon_name  = requests.get(api_pokemon_forma +forma_pokemon+ "/")
+     data_forma_pokemon = reponse_forma_pokemon_name.json()  
+     print(f"****Lista de Pokemones de forma:{forma_pokemon}****")
+     for pokemon_especies in data_forma_pokemon['pokemon_species']:
+        response_pokemon_especie = requests.get(pokemon_especies['url'])
+        data_pokemon_especie     = response_pokemon_especie.json()
+        for pokemon in data_pokemon_especie['varieties']:
+            varieties_pokemon    = requests.get(pokemon['pokemon']['url'])
+            data_pokemon         = varieties_pokemon.json()
+            MiPokemon = Pokemon(
+                pokemon['pokemon']['name'],
+                list(habilidad["ability"]["name"] for habilidad in data_pokemon["abilities"]),
+                data_pokemon["sprites"]['front_default']
+            )
+            MiPokemon.mostrar_datos()
+            print("-"*50)
+    
+     print('Has elegido la opción 2')
 
 def opcion3():
-    print('Has elegido la opción 3')
+     print('Has elegido la opción 3')
 
 def opcion4():
-    print('Has elegido la opción 4')
+     api_pokemon_habitat        = "https://pokeapi.co/api/v2/pokemon-habitat/"
+     reponse_habitat_pokemon_list = requests.get(api_pokemon_habitat)
+     data_habitat_pokemon_list    = reponse_habitat_pokemon_list.json()
+     opciones_habitat_pokemon     = [habitat['name'] for habitat in data_habitat_pokemon_list['results']]
+     habitat_pokemon=input(f"Ingrese el habitat del pokemon >\nopciones:{opciones_habitat_pokemon}:\n").strip()
+     while (habitat_pokemon not in opciones_habitat_pokemon):
+        print("¡El habitat de pokemon no esta dentro de las opciones!")
+        habitat_pokemon = input(f"Ingrese el habitat del pokemon > \nopciones:{opciones_habitat_pokemon}:\n").strip()
+    
+     reponse_habitat_pokemon_name  = requests.get(api_pokemon_habitat +habitat_pokemon+ "/")
+     data_habitat_pokemon = reponse_habitat_pokemon_name.json()
+     print(f"****Lista de Pokemones de habitat:{habitat_pokemon}****")
+     for pokemon_especies in data_habitat_pokemon['pokemon_species']:
+        response_pokemon_especie = requests.get(pokemon_especies['url'])
+        data_pokemon_especie     = response_pokemon_especie.json()
+        for pokemon in data_pokemon_especie['varieties']:
+            varieties_pokemon    = requests.get(pokemon['pokemon']['url'])
+            data_pokemon         = varieties_pokemon.json()
+            MiPokemon = Pokemon(
+                pokemon['pokemon']['name'],
+                list(habilidad["ability"]["name"] for habilidad in data_pokemon["abilities"]),
+                data_pokemon["sprites"]['front_default']
+            )
+            MiPokemon.mostrar_datos()
+            print("-"*50)
+     print('Has elegido la opción 4')
 
 def opcion5():
     print('Has elegido la opción 5')
