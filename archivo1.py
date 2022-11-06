@@ -215,7 +215,6 @@ def opcion9():
     print('Has elegido la opción 9')
 
 def opcion10():
-    Libro.Escribir_libro_disco_static()
     print('Has elegido la opción 10')
 
 def salir():
