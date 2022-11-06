@@ -101,7 +101,7 @@ def opcion5():
         print(f"[{data+1}]{data_tipo['results'][data]['name']:<21} [{data+2}]{data_tipo['results'][data+1]['name']:<19}")
     num_tipo = lee_entero("Seleccione un tipo de pokemon:")
     while (int(num_tipo) == 0) or (int(num_tipo) > 20):
-        print("¡Ha seleccionado un tipo fuera del rango")
+        print("¡Ha seleccionado un tipo-pokemon de fuera del rango")
         num_tipo = lee_entero("Seleccione un tipo de pokemon:")
     print(api_pokemon_tipo + str(int(num_tipo)-1) + "/")
     response_tipo_pokemon = requests.get(api_pokemon_tipo + str(num_tipo) + "/")
