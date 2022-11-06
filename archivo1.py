@@ -90,6 +90,7 @@ def opcion1():
     import csv
 
     with open("Libros.csv", "r") as file:
+        Libro.list_libros.clear()
         reader = csv.DictReader(file)
         for fila in reader:
             list_autores=fila['autores'].split('-')
