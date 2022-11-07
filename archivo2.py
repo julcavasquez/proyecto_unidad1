@@ -111,7 +111,33 @@ def opcion2():
      print('Has elegido la opción 2')
 
 def opcion3():
-     print('Has elegido la opción 3')
+    print('Has elegido la opción 3')
+    api_pokemon_ability = "https://pokeapi.co/api/v2/ability/"
+    contar = 2
+    response_ability = requests.get(api_pokemon_ability)
+    data_ability = response_ability.json()
+    print(data_ability)
+    print("****Lista de Habilidades de Pokemones****")
+    for data in range(0, len(data_ability['results']) ,contar):
+        print(f"[{data+1}]{data_ability['results'][data]['name']:<21} [{data+2}]{data_ability['results'][data+1]['name']:<19}")
+    num_ability = lee_entero("Seleccione la habilidad del pokemon:")
+    while (int(num_ability) == 0) or (int(num_ability) > 20):
+        print("¡Ha seleccionado una habilidad-pokemon fuera del rango")
+        num_ability = lee_entero("Seleccione una habilidad del pokemon:")
+    print(api_pokemon_ability + str(int(num_ability)-1) + "/")
+    response_ability_pokemon = requests.get(api_pokemon_ability + str(num_ability) + "/")
+    data_ability_pokemon = response_ability_pokemon.json()  
+    print(f"****Lista de Pokemones****")
+    for pokemon in data_ability_pokemon['pokemon']:
+        response_pokemon = requests.get(pokemon['pokemon']['url'])
+        data_pokemon = response_pokemon.json()
+        MiPokemon = Pokemon(
+            data_pokemon["name"],
+            list(habilidad["ability"]["name"] for habilidad in data_pokemon["abilities"]),
+            data_pokemon["sprites"]['front_default']
+        )
+        MiPokemon.mostrar_datos()
+        print("-"*50)
 
 def opcion4():
      api_pokemon_habitat        = "https://pokeapi.co/api/v2/pokemon-habitat/"
