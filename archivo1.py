@@ -211,6 +211,13 @@ def opcion9():
     print('Has elegido la opción 9')
 
 def opcion10():
+    f = open('Libros.csv', 'w', encoding='utf-8')
+    libros = "id,titulo,genero,isbn,editorial,autores\n"
+    f.write(libros)
+    for libro in Libro.list_libros:
+        libros = f"{libro.id},{libro.titulo},{libro.genero},{libro.isbn},{libro.editorial},{'-'.join(libro.autores)}\n"
+        f.write(libros)
+    f.close()
     print('Has elegido la opción 10')
 
 def salir():
